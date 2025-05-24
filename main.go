@@ -1,22 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println("Inside the go cli")
 	todos := Todos{}
 
-	todos.add("Buy Milk")
-	todos.add("Buy Toast")
+	storage := NewStorage[Todos]("todos.json")
 
-	todos.toggle(0)
+	storage.Load(&todos)
 
-	todos.print()
-
-	todos.delete(0)
-
-	todos.toggle(0)
+	todos.delete(3)
 
 	todos.print()
+
+	storage.Save(todos)
 
 }
